@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <!-- <settings>
+        <setting name="logImpl" value="SLF4J"/>
+        &lt;!&ndash;<setting name="cacheEnabled" value="true" />&ndash;&gt;
+    </settings>-->
+    <typeAliases>
+        <!-- 这里起的别名，pojo包下的类可以简单地写小写的类名，不用完整地写全包名了-->
+        <package name="com.xiaodeng.pojo"/>
+    </typeAliases>
+    <typeHandlers>
+        <typeHandler javaType="List" jdbcType="VARCHAR"
+                     handler="com.xiaodeng.myTypeHandle.ListTypeHandler"/>
+    </typeHandlers>
+    <plugins>
+        <plugin interceptor="com.xiaodeng.plugins.MyPlugin">
+            <!-- 可以设置自定义property 属性
+            -->
+            <property name="someProperty" value="100"/>
+        </plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/gp?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="599571116"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+       <!-- <mapper resource="com.xiaodeng.mapper.TestMapper.xml"/>-->
+        <package name="com.xiaodeng.mapper"/>
+    </mappers>
+
+
+</configuration>

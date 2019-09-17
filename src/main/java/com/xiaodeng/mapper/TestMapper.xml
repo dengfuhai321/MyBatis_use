@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaodeng.mapper.TestMapper">
+    <resultMap id="testMap" type="test">
+        <id property="id" column="id"/>
+        <result property="nums" column="nums"/>
+        <result property="mingzi" column="mingzi"/>
+        <result property="inters" column="inters" typeHandler="com.xiaodeng.myTypeHandle.ListTypeHandler"/>
+    </resultMap>
+    <select id="selectTest" resultMap="testMap">
+         SELECT * FROM test LIMIT 0,1;/*这里只能查询一个，因为typeHandler是单例，所以会报错*/
+    </select>
+
+    <insert id="insertTest" parameterType="test">
+         INSERT INTO test (id,nums,mingzi,inters)
+         VALUES(#{test.id},#{test.nums},#{test.name},#{test.inters,typeHandler=com.xiaodeng.myTypeHandle.ListTypeHandler});
+    </insert>
+</mapper>
